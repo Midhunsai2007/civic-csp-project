@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "development_secret_key_change_in_production_civic_platform_2026"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 day
-    DATABASE_URL: str = "sqlite:///./civic_complaints.db"
-    UPLOAD_DIR: str = "./uploads"
+    DATABASE_URL: str = "sqlite:////tmp/civic_complaints.db" if os.environ.get("VERCEL") else "sqlite:///./civic_complaints.db"
+    UPLOAD_DIR: str = "/tmp/uploads" if os.environ.get("VERCEL") else "./uploads"
     CORS_ORIGINS: Union[List[str], str] = [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
