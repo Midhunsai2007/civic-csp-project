@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.so
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env.local
+
+# FastAPI / SQLite runtime files
+backend/civic_complaints.db
+backend/civic_complaints.db-journal
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Environment secrets
+# (keep .env.example but NOT the actual .env)
+backend/.env
+
+# Frontend build & cache
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

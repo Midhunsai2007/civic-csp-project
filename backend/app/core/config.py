@@ -1,0 +1,36 @@
+import os
+from typing import List, Union
+from pydantic import AnyHttpUrl, field_validator
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    PROJECT_NAME: str = "AI-Powered Community Complaint & Smart Civic Issue Management System"
+    API_V1_STR: str = "/api"
+    SECRET_KEY: str = "development_secret_key_change_in_production_civic_platform_2026"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 day
+    DATABASE_URL: str = "sqlite:///./civic_complaints.db"
+    UPLOAD_DIR: str = "./uploads"
+    CORS_ORIGINS: Union[List[str], str] = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+    ]
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        if isinstance(v, str) and not v.startswith("["):
+            return [i.strip() for i in v.split(",")]
+        elif isinstance(v, (list, str)):
+            return v
+        raise ValueError(v)
+
+    class Config:
+        env_file = ".env"
+        case_sensitive = True
+        extra = "allow"
+
+settings = Settings()
+
+# Ensure upload directory exists
+os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
